@@ -1,0 +1,22 @@
+<section class="gallery" id="work">
+  <div class="row">
+
+    {{ range (where .Site.RegularPages.Reverse "Section" "gallery") }}
+      {{ $modalID := (slicestr .File.UniqueID 0 4) }}
+      {{ $stem := replaceRE `\.[^.]+$` "" .Params.image }}
+      <div class="gallery-item col-xs-12 col-md-6 col-lg-4" tabindex="0" role="button" aria-label="View {{ .Title }}" {{ if .Params.color }}style="background-color:{{ .Params.color }}"{{ end }}>
+        <div class="gallery-img-container">
+          <video data-trailer muted loop playsinline preload="none" poster="{{ "images/" | relURL }}{{ .Params.image }}"{{ if .Params.alt }} aria-label="{{ .Params.alt }}"{{ end }}>
+            <source src="{{ "images/" | relURL }}{{ $stem }}.mp4" type="video/mp4">
+          </video>
+          {{ if .Params.video }}<span class="play-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="rgba(0,0,0,.55)"/><path d="M10 8l6 4-6 4z" fill="#fff"/></svg></span>{{ end }}
+        </div>
+        <div class="row middle-xs center-xs overlay">
+          <a href="#modal-{{ $modalID }}" class="gallery-modal-link" aria-label="Open {{ .Title }} modal"></a>
+          <h2>{{ .Title }}</h2>
+        </div>
+      </div>
+    {{ end }}
+
+  </div>
+</section>

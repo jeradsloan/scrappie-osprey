@@ -1,0 +1,8 @@
+{{ with .Site.Params.email }}
+  {{ $parts := split . "@" }}
+  {{ $user := index $parts 0 }}
+  {{ $domain := index $parts 1 }}
+  <span class="obf-email" data-u="{{ $user }}" data-d="{{ $domain }}">
+    <noscript>{{ $user }} [at] {{ replace $domain "." " [dot] " }}</noscript>
+  </span>
+{{ end }}

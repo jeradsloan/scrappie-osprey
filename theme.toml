@@ -1,0 +1,18 @@
+name = "Osprey SD"
+license = "Apache License 2.0"
+licenselink = "https://github.com/jeradsloan/osprey-sd-theme/blob/main/LICENSE"
+description = "Maintained fork of Osprey (by Toma Nistor) — patched for modern Hugo, with self-hosted Video.js gallery support and param-driven branding."
+homepage = "https://github.com/jeradsloan/osprey-sd-theme"
+tags = ["blog", "portfolio", "gallery", "minimalist", "responsive", "flexbox", "video"]
+features = ["blog", "portfolio", "gallery", "video.js", "param-driven-branding"]
+min_version = "0.112.0"
+
+# Original upstream author — attribution retained per Apache 2.0.
+[author]
+  name = "Toma Nistor"
+  homepage = "https://tomanistor.com"
+
+# Maintainer of this fork.
+[original]
+  name = "jeradsloan"
+  homepage = "https://github.com/jeradsloan"

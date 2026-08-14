@@ -1,1 +1,4 @@
 static/*/*-*.min.*
+
+# Local agent instructions (not shipped)
+AGENTS.md

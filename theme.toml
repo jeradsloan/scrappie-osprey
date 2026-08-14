@@ -1,8 +1,8 @@
 name = "Osprey SD"
 license = "Apache License 2.0"
-licenselink = "https://github.com/jeradsloan/osprey-sd-theme/blob/main/LICENSE"
+licenselink = "https://github.com/jeradsloan/scrappie-osprey/blob/main/LICENSE"
 description = "Maintained fork of Osprey (by Toma Nistor) — patched for modern Hugo, with self-hosted Video.js gallery support and param-driven branding."
-homepage = "https://github.com/jeradsloan/osprey-sd-theme"
+homepage = "https://github.com/jeradsloan/scrappie-osprey"
 tags = ["blog", "portfolio", "gallery", "minimalist", "responsive", "flexbox", "video"]
 features = ["blog", "portfolio", "gallery", "video.js", "param-driven-branding"]
 min_version = "0.112.0"

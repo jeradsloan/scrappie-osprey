@@ -14,6 +14,10 @@ $color-accent: {{ $b.colorAccent | default "#FFAA01" }};
 $font-header: {{ printf "%q, %s" ($b.fontHeader | default "Helvetica") ($b.fontStack | default "sans-serif") }};
 $font-body: {{ printf "%q, %s" ($b.fontBody | default "Helvetica") ($b.fontStack | default "sans-serif") }};
 $hero-mosaic-url: "{{ $b.heroMosaicUrl | default "" }}";
+$logo-nav-max-width: {{ $b.logoNavMaxWidth | default "10em" }};
+$logo-nav-max-height: {{ $b.logoNavMaxHeight | default "2.5em" }};
+$home-logo-max-width: {{ $b.homeLogoMaxWidth | default "none" }};
+$home-logo-width: {{ $b.homeLogoWidth | default "auto" }};
 
 @import "animation";
 @import "layout";
@@ -86,8 +90,8 @@ nav {
 
   img {
     display: inline-block;
-    max-width: 160px;
-    max-height: 3.25rem;
+    max-width: $logo-nav-max-width;
+    max-height: $logo-nav-max-height;
     width: auto;
     height: auto;
     vertical-align: middle;
@@ -172,8 +176,8 @@ h3 {
 
 .home-logo {
   margin-bottom: $vertical-rhythm / 4;
-  max-width: 320px;
-  width: 70%;
+  max-width: $home-logo-max-width;
+  width: $home-logo-width;
   height: auto;
   display: inline-block;
 }
@@ -370,7 +374,6 @@ header {
 header > .hero-content {
   position: relative;
   z-index: 2;
-  padding-bottom: $vertical-rhythm * 3;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -396,9 +399,6 @@ header > .hero-content {
   margin-bottom: 0;
 }
 
-.about p {
-  margin: 0;
-}
 
 .about p + p {
   margin-top: 0.75rem;
@@ -414,10 +414,6 @@ header > .hero-content {
   margin: 0;
 }
 
-// Contact section: restore top padding for separation from About
-.contact .container {
-  padding-top: $vertical-rhythm * 2;
-}
 
 // Contact page: social follow icons
 .social {
@@ -655,7 +651,7 @@ header > .hero-content {
   }
 
   h2 {
-    font-size: 1.05rem;
+    font-size: 1.3rem;
     line-height: 1.2;
     margin: 0;
   }

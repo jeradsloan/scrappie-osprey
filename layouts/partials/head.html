@@ -68,7 +68,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#268CCD">
+  <meta name="theme-color" content="{{ .Site.Params.brand.colorPrimary | default "#268CCD" }}">
 
   <link rel="canonical" href="{{ .Permalink }}">
   
@@ -88,7 +88,9 @@
     <script>window.__vjsAssets={css:"{{ $vjsCSS.RelPermalink }}",js:"{{ $vjsJS.RelPermalink }}"};</script>
   {{ end }}
 
-  {{ $style := resources.Get "sass/main.scss" | css.Sass (dict "outputStyle" "compressed") | resources.Fingerprint }}
+  {{ partial "fonts.html" . }}
+
+  {{ $style := resources.Get "sass/main.scss" | resources.ExecuteAsTemplate "sass/main-rendered.scss" . | css.Sass (dict "outputStyle" "compressed") | resources.Fingerprint }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}" type="text/css">
 
   {{ if .Site.Params.customCSS }}

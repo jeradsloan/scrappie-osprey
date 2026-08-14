@@ -1,0 +1,10 @@
+{{- /*
+  Fonts partial. Default: Google Fonts via params.brand.fontGoogleUrl.
+  To self-host instead, provide your own layouts/partials/fonts.html
+  (Hugo lookup order overrides this theme default).
+*/ -}}
+{{- with .Site.Params.brand.fontGoogleUrl }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="{{ . }}" rel="stylesheet">
+{{- end }}

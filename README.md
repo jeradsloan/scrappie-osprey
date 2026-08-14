@@ -8,11 +8,10 @@ Maintained fork of [Osprey](https://github.com/tomanistor/osprey) by Toma Nistor
 - `head.html` drops the removed `_internal/google_analytics_async.html`.
 - `css.Sass` replaces the removed `resources.ToCSS`.
 - `.Site.Language.Locale` replaces the deprecated `.Site.LanguageCode` (v0.127+).
-- Full favicon link set (ico + png + manifest + apple-touch).
-- Full favicon link set emitted from `head.html`.
+- Full favicon link set emitted from `head.html` (ico + png + manifest + apple-touch).
 
 ### Features
-- **Self-hosted Video.js** (v8.23.9) for gallery videos, lazy-loaded on first modal open. Non-Vimeo `video` front matter renders a `<video data-vjs-manifest>` element; `modal.js` handles load + init. Vimeo URLs still render as iframe embeds.
+- **Self-hosted Video.js** (v8.23.9) for gallery videos. Players pre-initialize on scroll (IntersectionObserver) so a single tap plays unmuted on iOS/Android; the script itself lazy-loads. Non-Vimeo `video` front matter renders a `<video data-vjs-manifest>` element; `modal.js` handles load + init. Vimeo URLs render as iframe embeds.
 - **Hero mosaic background** (mobile fallback) when the hero `<video>` won't autoplay.
 - **Contact form** toggle: Formspree OR Basin (free AJAX via `ajaxBasin`).
 
@@ -22,13 +21,14 @@ Colors and font family are exposed as `params.brand.*` so each site brands with 
 ```yaml
 params:
   brand:
-    colorPrimary: "#268CCD"
-    colorNavBg: "#2619D0"
-    colorNavText: "#FFAA01"
-    colorNavTextHover: "#FFFFFF"
+    colorPrimary: "#268CCD"   # main bg, header/hero
+    colorDark: "#2619D0"      # nav + footer bg
+    colorAccent: "#FFAA01"    # nav text, hovers, focus rings
     fontHeader: "Caladea"
     fontBody: "Caladea"
     fontStack: "Georgia, serif"
+    heroMosaicUrl: "/images/hero-mosaic.webp"   # mobile hero fallback; omit if unused
+    # fontGoogleUrl: "https://fonts.googleapis.com/css2?family=..."  # default fonts; OR self-host via fonts.html
 ```
 
 Fonts default to a Google Fonts `<link>` via `params.brand.fontGoogleUrl`. To self-host instead, provide your own `layouts/partials/fonts.html` (Hugo lookup order overrides the theme default).

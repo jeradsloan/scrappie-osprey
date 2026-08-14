@@ -36,14 +36,14 @@ Fonts default to a Google Fonts `<link>` via `params.brand.fontGoogleUrl`. To se
 ## Install as a submodule
 
 ```bash
-git submodule add https://github.com/jeradsloan/scrappie-osprey.git themes/osprey-sd
+git submodule add https://github.com/jeradsloan/scrappie-osprey.git themes/scrappie-osprey
 git submodule update --init --recursive
 ```
 
 Then in `hugo.yaml`:
 
 ```yaml
-theme: osprey-sd
+theme: scrappie-osprey
 ```
 
 ## License

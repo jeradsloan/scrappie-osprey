@@ -1,4 +1,4 @@
-name = "Osprey SD"
+name = "Scrappie Osprey"
 license = "Apache License 2.0"
 licenselink = "https://github.com/jeradsloan/scrappie-osprey/blob/main/LICENSE"
 description = "Maintained fork of Osprey (by Toma Nistor) — patched for modern Hugo, with self-hosted Video.js gallery support and param-driven branding."

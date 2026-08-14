@@ -1,0 +1,8 @@
+{{- /* Optional per-site CSS override.
+   Set params.customCSS: true AND provide assets/css/custom.css in the project.
+   Loaded AFTER the main stylesheet, so same-specificity rules here win the cascade.
+   Use for the few layout values a site needs beyond the theme's classic defaults. */ -}}
+{{ with resources.Get "css/custom.css" }}
+  {{ $custom := . | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $custom.RelPermalink }}" type="text/css">
+{{ end }}

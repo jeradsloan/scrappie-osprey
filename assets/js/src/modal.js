@@ -47,6 +47,36 @@
     return player;
   }
 
+  // Set sources + wire HLS->mp4 fallback ONCE, at pre-init time (before any tap).
+  function setVjsSources(player, vjsEl) {
+    var hlsSrc = vjsEl.getAttribute('data-vjs-manifest');
+    var mp4Src = vjsEl.getAttribute('data-mp4-fallback');
+    var sources = [{ src: hlsSrc, type: 'application/vnd.apple.mpegurl' }];
+    if (mp4Src) sources.push({ src: mp4Src, type: 'video/mp4' });
+    player.src(sources);
+    if (mp4Src && !player.__vjsFallbackWired) {
+      player.__vjsFallbackWired = true;
+      var triedFallback = false;
+      player.on('error', function () {
+        if (triedFallback || !player.error()) return;
+        triedFallback = true;
+        player.reset();
+        player.src({ src: mp4Src, type: 'video/mp4' });
+      });
+    }
+  }
+
+  // Pre-initialize a modal's player so it's buffered BEFORE the user taps.
+  function setupVjsModal(vjsEl) {
+    if (vjsEl.__vjsSetupStarted) return;
+    vjsEl.__vjsSetupStarted = true;
+    ensureVjsLoaded().then(function () {
+      if (!window.videojs) return;
+      var player = initVjsPlayer(vjsEl);
+      setVjsSources(player, vjsEl);
+    }).catch(function (e) { if (window.console) console.error('vjs load failed', e); });
+  }
+
   function animateOpen(box) {
     if (!box) return;
     box.classList.add('scale-in-center');
@@ -80,42 +110,23 @@
     }
 
     var vjsEl = activeModal.querySelector('video[data-vjs-manifest]');
-    var targetModal = activeModal;
     if (vjsEl) {
-      ensureVjsLoaded().then(function () {
-        if (activeModal !== targetModal) return;  // closed during load
-        var player = initVjsPlayer(vjsEl);
-
-        var hlsSrc = vjsEl.getAttribute('data-vjs-manifest');
-        var mp4Src = vjsEl.getAttribute('data-mp4-fallback');
-        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-        // Sources array: codec fallback for browsers lacking HLS support.
-        var sources = [{ src: hlsSrc, type: 'application/vnd.apple.mpegurl' }];
-        if (mp4Src) sources.push({ src: mp4Src, type: 'video/mp4' });
-        player.src(sources);
-
-        // Runtime fallback: if HLS errors (worker down, 404, network), retry mp4 once.
-        if (mp4Src) {
-          var triedFallback = false;
-          player.on('error', function () {
-            if (triedFallback) return;
-            var err = player.error();
-            if (!err) return;
-            triedFallback = true;
-            player.reset();
-            player.src({ src: mp4Src, type: 'video/mp4' });
-            if (!isIOS) {
-              player.one('loadedmetadata', function () { player.play().catch(function () {}); });
-            }
-          });
-        }
-
-        if (!isIOS) {
-          player.one('loadedmetadata', function () { player.play().catch(function () { /* autoplay blocked */ }); });
-        }
-      }).catch(function (e) { if (window.console) console.error('vjs load failed', e); });
+      var player = vjsEl.__vjsPlayer;
+      if (player) {
+        // WARM PATH: pre-initialized by preloadVisibleModals(). play() is a direct,
+        // synchronous call inside this click handler -> unmuted playback allowed on iOS + Android.
+        player.play().catch(function () { /* blocked: big play button shown */ });
+      } else {
+        // COLD PATH: tapped before pre-init finished. Async script load breaks the
+        // gesture chain, so unmuted playback may be blocked. Still fully usable.
+        var modalRef = activeModal;
+        ensureVjsLoaded().then(function () {
+          if (activeModal !== modalRef) return;  // closed during load
+          var p = initVjsPlayer(vjsEl);
+          setVjsSources(p, vjsEl);
+          p.one('loadedmetadata', function () { p.play().catch(function () {}); });
+        }).catch(function (e) { if (window.console) console.error('vjs load failed', e); });
+      }
     }
 
     var closeBtn = activeModal.querySelector('.close');
@@ -248,6 +259,33 @@
       }
     }
   });
+
+  // Lazy pre-init: warm up video.js players for gallery cards near the viewport so
+  // the first tap hits a buffered player (warm path -> unmuted single-tap autoplay).
+  function preloadVisibleModals() {
+    var setupForItem = function (item) {
+      var link = item.querySelector('.gallery-modal-link');
+      if (!link) return;
+      var modal = document.querySelector(link.getAttribute('href'));
+      if (!modal) return;
+      var vjsEl = modal.querySelector('video[data-vjs-manifest]');
+      if (vjsEl) setupVjsModal(vjsEl);
+    };
+    if (!('IntersectionObserver' in window)) {
+      galleryItems.forEach(setupForItem);
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        setupForItem(entry.target);
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '300px 0px' });
+    galleryItems.forEach(function (item) { io.observe(item); });
+  }
+
+  preloadVisibleModals();
 
 })();
 

@@ -1,4 +1,4 @@
-# Osprey SD
+# Scrappie Osprey
 
 Maintained fork of [Osprey](https://github.com/tomanistor/osprey) by Toma Nistor (Apache 2.0). The upstream theme was abandoned in December 2019 (v2.1.0) and no longer builds on modern Hugo. This fork carries the accumulated compatibility patches and feature additions needed to keep it running.
 

@@ -491,7 +491,10 @@ header > .hero-content {
   a.social-icon:link,
   a.social-icon:visited {
     color: #FFFFFF !important;
-    transition: color .2s ease-out, transform .2s ease-out;
+    // Dimmed rest state: 0.85 white = 3.1:1 on worst-case flat $color-primary;
+    // hero video bg is darker, so real headroom is larger. Hover restores full.
+    opacity: .85;
+    transition: color .2s ease-out, transform .2s ease-out, opacity .2s ease-out;
 
     svg {
       fill: #FFFFFF !important;
@@ -499,12 +502,13 @@ header > .hero-content {
   }
 
   // Hover cue stays white: #FFAA01 accent on #268CCD hero fails 3:1 non-text contrast.
-  // Scale alone carries the state.
+  // Scale + restored opacity carry the state.
   .social-icon:hover,
   .social-icon:focus-visible,
   a.social-icon:hover,
   a.social-icon:focus-visible {
     color: #FFFFFF !important;
+    opacity: 1;
     transform: scale(1.15);
 
     svg {

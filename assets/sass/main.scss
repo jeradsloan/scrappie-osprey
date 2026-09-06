@@ -287,6 +287,10 @@ time {
   padding-bottom: $vertical-rhythm * 2;
   background-color: $smoke;
 
+  .container {
+    padding-bottom: 0;
+  }
+
   form {
     margin-top: $vertical-rhythm;
   }

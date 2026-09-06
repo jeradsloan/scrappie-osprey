@@ -452,6 +452,7 @@ header > .hero-content {
   // h2 kept for consumer sites on older pins; h3 is current
   :is(h2, h3) {
     text-align: center;
+    margin-bottom: $vertical-rhythm / 2; // label sits close to its icons, not equidistant
   }
 }
 

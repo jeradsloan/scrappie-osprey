@@ -117,5 +117,12 @@
       toggleMenu(true);
     }
   });
+
+  // Escape closes the full screen nav
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && $('.nav-full') && $('.nav-full').classList.contains('active')) {
+      toggleMenu(true);
+    }
+  });
 })();
 

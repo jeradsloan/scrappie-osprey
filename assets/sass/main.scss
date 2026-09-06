@@ -123,6 +123,8 @@ nav {
   transform: translate(0, 0);
   transition: .25s ease-out;
   background-color: $color-dark;
+  // Removed from tab order + AT while closed (visibility, not just transform)
+  visibility: hidden;
 
   a {
     color: $color-accent;
@@ -135,6 +137,33 @@ nav {
 
 .nav-full.active {
   transform: translate(-100vw, 0);
+  visibility: visible;
+}
+
+.nav-full-link {
+  display: block;
+  padding: $vertical-rhythm / 2 0;
+  font-family: $font-header;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.45;
+}
+
+// Hamburger toggle: native button, anchor styles stripped
+button.nav-icon {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+
+  img {
+    display: block;
+    max-width: $logo-nav-max-width;
+    max-height: $logo-nav-max-height;
+    width: auto;
+    height: auto;
+  }
 }
 
 main {
@@ -468,15 +497,17 @@ header > .hero-content {
     }
   }
 
+  // Hover cue stays white: #FFAA01 accent on #268CCD hero fails 3:1 non-text contrast.
+  // Scale alone carries the state.
   .social-icon:hover,
   .social-icon:focus-visible,
   a.social-icon:hover,
   a.social-icon:focus-visible {
-    color: $color-accent !important;
+    color: #FFFFFF !important;
     transform: scale(1.15);
 
     svg {
-      fill: $color-accent !important;
+      fill: #FFFFFF !important;
     }
   }
 }

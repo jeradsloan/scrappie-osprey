@@ -219,7 +219,7 @@ h3 {
 time {
   @include size(p);
   margin-bottom: $vertical-rhythm;
-  color: $storm;
+  color: $color-dark;
 }
 
 .content {
@@ -231,7 +231,7 @@ time {
   }
 
   a {
-    background-image: linear-gradient($accent, $accent);
+    background-image: linear-gradient($color-accent, $color-accent);
     background-repeat: repeat-x;
     background-position: 0 95%;
     background-size: 1px 2px;
@@ -245,7 +245,7 @@ time {
     -.15em .075em $white;
 
     &:hover {
-      color: $accent;
+      color: $color-dark;
     }
   }
 }
@@ -322,12 +322,12 @@ input {
 
   &[type="submit"] {
     transition: .2s ease-out;
-    background-color: $storm;
+    background-color: $color-dark;
     color: $white;
 
     &:hover {
-      background-color: $accent;
-      color: $white;
+      background-color: $color-accent;
+      color: $color-dark;
       cursor: pointer;
     }
   }
@@ -468,7 +468,7 @@ header > .hero-content {
   height: 40px;
   align-items: center;
   justify-content: center;
-  color: $storm;
+  color: $color-dark;
   transition: color .2s ease-out;
 
   svg {
@@ -478,7 +478,7 @@ header > .hero-content {
   }
 
   &:hover {
-    color: $accent;
+    color: $color-primary;
   }
 }
 
@@ -639,7 +639,7 @@ header > .hero-content {
     opacity: 1;
     background: linear-gradient(to top, rgba(0, 0, 0, .75), transparent 60%);
 
-    h2 {
+    h3 {
       margin: 0 0 $vertical-rhythm / 2;
       font-size: 1.1rem;
       text-align: center;
@@ -705,7 +705,7 @@ header > .hero-content {
 
     &:hover svg,
     &:focus svg {
-      fill: $accent;
+      fill: $color-dark;
     }
   }
 }
@@ -732,12 +732,25 @@ section[id] {
   outline-offset: 2px;
 }
 
+// Visually hidden but still in the a11y tree (section labels etc.)
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 button.close {
   background: transparent;
   border: none;
   font-size: 2.2rem;
   line-height: 1;
-  color: $storm;
+  color: $white;
   cursor: pointer;
   padding: 8px;
   min-width: 44px;
@@ -749,7 +762,7 @@ button.close {
 
   &:hover,
   &:focus-visible {
-    color: $accent;
+    color: $color-accent;
   }
 }
 

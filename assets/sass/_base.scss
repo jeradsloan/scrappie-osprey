@@ -22,7 +22,7 @@ a {
   }
 
   &:hover {
-    color: $accent;
+    color: $color-primary;
   }
 }
 
@@ -99,7 +99,7 @@ q {
 
 %blockquote {
   content: "\201C";
-  color: $accent;
+  color: $color-accent;
   font-family: $font-header;
   font-size: 35px;
 }

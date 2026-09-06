@@ -92,6 +92,13 @@
     }, 400);
   }
 
+  function setBgInert(inert) {
+    // Keep background content out of the a11y tree + tab order while a modal is open
+    $$('.hero-wrapper, nav, main, footer').forEach(function(el) {
+      el.inert = inert;
+    });
+  }
+
   function triggerModalOpen(href, triggerEl) {
     if (!href) return;
     var targetModal = $(href);
@@ -100,6 +107,7 @@
     lastFocusedElement = triggerEl || document.activeElement;
     activeModal = targetModal;
     activeModal.classList.add('active');
+    setBgInert(true);
 
     var box = activeModal.querySelector('.modal-box');
     animateOpen(box);
@@ -143,6 +151,7 @@
 
     animateClose(box, function() {
       modalRef.classList.remove('active');
+      setBgInert(false);
       var iframe = modalRef.querySelector('iframe[data-src]');
       if (iframe) {
         iframe.removeAttribute('src');

@@ -495,6 +495,10 @@ header > .hero-content {
   a.social-icon:visited {
     width: 34px;
     height: 34px;
+    // global .social-icon sets 44px min; 34 + 24px gaps still clears the
+    // 24x24 AA baseline with spacing, and this cluster is desktop-pointer hero chrome
+    min-width: 34px;
+    min-height: 34px;
     color: #FFFFFF !important;
     // Dimmed rest state: 0.85 white = 3.1:1 on worst-case flat $color-primary;
     // hero video bg is darker, so real headroom is larger. Hover restores full.

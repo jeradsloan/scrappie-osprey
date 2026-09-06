@@ -449,7 +449,8 @@ header > .hero-content {
 .social {
   margin-top: $vertical-rhythm * 2;
 
-  h2 {
+  // h2 kept for consumer sites on older pins; h3 is current
+  :is(h2, h3) {
     text-align: center;
   }
 }
@@ -459,7 +460,6 @@ header > .hero-content {
   flex-wrap: wrap;
   justify-content: center;
   gap: $vertical-rhythm;
-  margin-top: $vertical-rhythm;
 }
 
 .social-icon {

@@ -484,12 +484,17 @@ header > .hero-content {
 }
 
 .hero-social-icons {
-  margin-top: $vertical-rhythm;
+  // Tighter cluster under the logo: smaller glyphs, 20px from logo block
+  // (was $vertical-rhythm), icons still pass hit-area via 32px gap spacing
+  margin-top: 20px;
+  gap: 24px;
 
   .social-icon,
   a.social-icon,
   a.social-icon:link,
   a.social-icon:visited {
+    width: 34px;
+    height: 34px;
     color: #FFFFFF !important;
     // Dimmed rest state: 0.85 white = 3.1:1 on worst-case flat $color-primary;
     // hero video bg is darker, so real headroom is larger. Hover restores full.
@@ -497,6 +502,8 @@ header > .hero-content {
     transition: color .2s ease-out, transform .2s ease-out, opacity .2s ease-out;
 
     svg {
+      width: 26px;
+      height: 26px;
       fill: #FFFFFF !important;
     }
   }
